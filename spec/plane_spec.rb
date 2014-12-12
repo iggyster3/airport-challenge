@@ -22,8 +22,9 @@ describe Plane do
     expect(plane.plane_status).to eq('flying')
   end
 
-  it 'can land at the airport' do
+  it 'can change status to land when arriving at the airport' do
     plane
+    airport_controller
     weather
     airport_controller.weather_status(weather)
     expect(plane.plane_can_land(airport_controller)).not_to eq(false)
@@ -36,8 +37,10 @@ describe Plane do
     expect(airport_controller.weather_status(weather)).not_to eq('stormy')
   end
 
-  it 'changes its status to flying after taking of' do
-
+  it 'changes its status to flying after taking off' do
+    plane
+    airport_controller
+    expect(plane.plane_can_takeoff(airport_controller)).not_to eq('landed')
   end
 
 end
