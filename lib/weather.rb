@@ -1,11 +1,15 @@
 class Weather
 
   def initialize
-    @weather = 'sunny'
+    @weather = ['sunny','stormy']
   end
 
-  def weather_status
-    @weather
+  def weather_status_sunny
+    @weather.fetch(0)
+  end
+
+  def weather_status_stormy
+    @weather.fetch(1)
   end
 
 end

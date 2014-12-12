@@ -33,6 +33,7 @@ describe Airport do
       plane
       10.times { airport.plane_dock(plane) }
       expect(airport.plane_count).to eq(10)
+      expect(airport.full?).to eq(true)
     end
 
     it "should know when it is empty" do
@@ -41,6 +42,7 @@ describe Airport do
       10.times { airport.plane_dock(plane) }
       airport.release(plane)
       expect(airport.empty?).to eq(true)
+      expect(airport.plane_count).to eq(0)
     end
 
   end
