@@ -5,7 +5,7 @@ class Weather
   end
 
   def weather_status_sunny
-    @weather.fetch(0)
+    @waether = @weather.fetch(0)
   end
 
   def weather_status_stormy

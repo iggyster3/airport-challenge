@@ -45,5 +45,13 @@ describe Airport do
       expect(airport.plane_count).to eq(0)
     end
 
+    it "a plane cannot land if the airport is full" do
+      airport
+      plane
+      10.times { airport.plane_dock(plane) }
+      expect(airport.full?).to eq(true)
+      expect(airport.plane_count).to eq(10)
+    end
+
   end
 end
