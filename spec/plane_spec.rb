@@ -1,5 +1,5 @@
-require 'airport_controller'
-require 'weather'
+require 'airport'
+
 # When we create a new plane, it should have a "flying" status, thus planes can not be created in the airport.
 #
 # When we land a plane at the airport, the plane in question should have its status changed to "landed"
@@ -8,9 +8,9 @@ require 'weather'
 
 describe Plane do
 
-  let(:plane) { Plane.new }
-  let(:airport_controller) { AirportController.new }
-  let(:weather) { Weather.new }
+  let(:plane) { Plane.new('flying') }
+  let(:airport) { Airport.new }
+
 
   it 'has a flying status when created' do
     plane
@@ -19,28 +19,16 @@ describe Plane do
 
   it 'has a flying status when in the air' do
     plane
+    plane.air
     expect(plane.plane_status).to eq('flying')
   end
 
-  it 'can change status to land when arriving at the airport' do
-    plane
-    airport_controller
-    weather
-    airport_controller.weather_status(weather)
-    expect(plane.plane_can_land(airport_controller)).not_to eq(false)
-
-  end
-
-  it 'can take off from the airport' do
-    plane
+  it 'can take off and change its flying status' do
+    10.times { airport.plane_dock(plane) }
+    plane.status=('landed')
+    expect(airport.full?).to eq(true)
+    plane.status=('flying')
     expect(plane.plane_status).to eq('flying')
-    expect(airport_controller.weather_status(weather)).not_to eq('stormy')
-  end
-
-  it 'changes its status to flying after taking off' do
-    plane
-    airport_controller
-    expect(plane.plane_can_takeoff(airport_controller)).not_to eq('landed')
   end
 
 end
